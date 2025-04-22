@@ -306,7 +306,7 @@ class StatisticalChunker(BaseChunker):
         for i in range(0, len(docs), max_docs_per_batch):
             batch_docs = docs[i : i + max_docs_per_batch]
             try:
-                batch_embeddings = self.encoder(batch_docs)
+                batch_embeddings = self.encoder.model(batch_docs)
                 embeddings.extend(batch_embeddings)
             except Exception as e:
                 logger.error(f"Error encoding documents {batch_docs}: {e}")
