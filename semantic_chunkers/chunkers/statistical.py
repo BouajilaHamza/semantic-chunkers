@@ -5,6 +5,7 @@ from typing import Any, List, Optional
 import numpy as np
 from semantic_router.encoders.base import DenseEncoder
 from tqdm.auto import tqdm
+from pydantic import validate_arguments
 
 from semantic_chunkers.chunkers.base import BaseChunker
 from semantic_chunkers.schema import Chunk
@@ -44,8 +45,7 @@ class ChunkStatistics:
 
 
 class StatisticalChunker(BaseChunker):
-    encoder: DenseEncoder
-
+    @validate_arguments
     def __init__(
         self,
         encoder: DenseEncoder,
@@ -60,6 +60,8 @@ class StatisticalChunker(BaseChunker):
         plot_chunks=False,
         enable_statistics=False,
     ):
+        if not isinstance(encoder, DenseEncoder):
+            raise TypeError(f"Expected encoder to be an instance of DenseEncoder, got {type(encoder)}")
         super().__init__(name=name, encoder=encoder, splitter=splitter)
         self.encoder = encoder
         self.threshold_adjustment = threshold_adjustment
