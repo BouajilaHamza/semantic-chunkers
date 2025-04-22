@@ -7,6 +7,7 @@ readme = "README.md"
 packages = [{include = "semantic_chunkers"}]
 
 [project]
+name = "semantic-chunkers"
 license = {file = "LICENSE"}
 
 [tool.poetry.dependencies]
